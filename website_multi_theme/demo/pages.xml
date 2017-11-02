@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
 <odoo>
 
-    <template id="demo_page" page="True" name="Multi website theme demo page">
+    <template id="demo_page" name="Multi website theme demo page">
         <t t-call="website.layout">
             <section class="jumbotron s_big_message" style="background-image: url('/web/image/website.s_background_image_01');">
                 <div class="container">
