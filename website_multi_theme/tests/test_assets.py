@@ -31,9 +31,9 @@ class UICase(HttpCase):
 
     def test_localhost(self):
         """Check localhost downloads its multiwebsite-enabled assets."""
-        response = self.url_open("http://localhost:%d" % PORT)
-        self.assertEqual(response.getcode(), 200)
-        result = html.document_fromstring(response.read())
+        response = self.url_open("http://localhost:%d" % PORT, timeout=30)
+        self.assertEqual(response.status_code, 200)
+        result = html.document_fromstring(response.content)
         self.assertFalse(result.xpath(
             "//head/link[contains(@href, 'web.assets_frontend')]"))
         self.assertTrue(result.xpath(
@@ -42,9 +42,9 @@ class UICase(HttpCase):
 
     def test_127_0_0_1(self):
         """Check 127.0.0.1 downloads its default assets."""
-        response = self.url_open("http://127.0.0.1:%d" % PORT)
-        self.assertEqual(response.getcode(), 200)
-        result = html.document_fromstring(response.read())
+        response = self.url_open("http://127.0.0.1:%d" % PORT, timeout=30)
+        self.assertEqual(response.status_code, 200)
+        result = html.document_fromstring(response.content)
         self.assertTrue(result.xpath(
             "//head/link[contains(@href, 'web.assets_frontend')]"))
         self.assertFalse(result.xpath(
