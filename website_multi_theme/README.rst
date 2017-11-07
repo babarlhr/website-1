@@ -121,12 +121,6 @@ Known issues / Roadmap
 * If you install any unsupported theme along with this addon, it would possibly
   become the base for all those supported, which can easily lead to weird
   situations and errors.
-* This addon will not work if your Odoo is not patched. Make sure it is updated
-  before installing. It must include these commits:
-
-  - https://github.com/odoo/odoo/commit/15bf41270d3abb607e7b623b59355594cad170cf
-  - https://github.com/odoo/odoo/commit/7c6714d7fee4125f037ef194f9cff5235a6c5320
-  - https://github.com/odoo/odoo/commit/48fe0a595308722a26afd5361432f24c610b4ba0
 
 Credits
 =======
