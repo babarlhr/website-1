@@ -8,10 +8,20 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website.res_config_settings_view_form"/>
         <field name="arch" type="xml">
+            <!-- make website_id visible -->
             <field name="website_id" position="replace"/>
-            <field name="website_name" position="before">
-                <field name="website_id"/>
-            </field>
+            <xpath expr="//field[@name='website_name']/.." position="before">
+                <div class="row mt16">
+                    <label class="col-md-3 o_light_label" string="Website"/>
+                    <field name="website_id"/>
+                </div>
+            </xpath>
+
+            <!-- remove mt16 class from the div, because it's not on the top anymore -->
+            <xpath expr="//field[@name='website_name']/.." position="attributes">
+                <attribute name="class">row</attribute>
+            </xpath>
+
             <xpath expr="//div[@id='webmaster_settings']" position="inside">
                 <div class="col-xs-12 col-md-6 o_setting_box" id="multi_theme">
                     <div class="o_setting_right_pane">
