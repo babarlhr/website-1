@@ -27,6 +27,7 @@
     "demo": [
         "demo/pages.xml",
         "demo/themes.xml",
+        "demo/website.xml",
     ],
     "external_dependencies": {
         "bin": [
