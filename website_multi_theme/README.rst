@@ -109,8 +109,8 @@ scratch).
 This does not happen in demo or development instances, where views arch is
 always updated.
 
-How to test on runbot
----------------------
+How to test on runbot?
+----------------------
 
 * Open ``[[ Website ]] >> Configuration >> Settings``
 * Switch *Website* field from ``Website localhost`` to ``Website 0.0.0.0``
