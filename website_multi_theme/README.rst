@@ -114,14 +114,14 @@ How to test on runbot
 
 * Open ``[[ Website ]] >> Configuration >> Settings``
 * Switch *Website* field from ``Website localhost`` to ``Website 0.0.0.0``
-* Click ``fa-external-link`` to edit the Website
-* At **Website Domain** field copy-paste build domain and add something to after first dot, e.g.
+* Click *fa-external-link* icon to edit the Website
+* At **Website Domain** field copy-paste build domain and add something right after the first dot, for example::
 
       Original domain: 3308093-10-0-28910f.runbot2.odoo-community.org
            New domain: 3308093-10-0-28910f.second-website.runbot2.odoo-community.org
 
 * Click ``[Save]`` to save changes at the Website
-* Now you can use unchanged build domain forwebsite called ``Website localhost`` and updated domain for website called ``Website 0.0.0.0``
+* Now you can use unchanged build domain for website called ``Website localhost`` and updated domain for website called ``Website 0.0.0.0``
 
 Known issues / Roadmap
 ======================
