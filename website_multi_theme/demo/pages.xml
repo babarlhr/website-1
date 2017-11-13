@@ -3,22 +3,6 @@
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
 <odoo>
 
-    <record id="menu_demo_page" model="website.menu">
-        <field name="name">Multi website theme demo page</field>
-        <field name="url">/website_multi_theme</field>
-        <field name="parent_id" ref="website.main_menu" />
-        <field name="sequence" type="int">50</field>
-        <field name="website_id" ref="website.default_website"/>
-    </record>
-
-    <record id="menu_demo_page2" model="website.menu">
-        <field name="name">Multi website theme demo page</field>
-        <field name="url">/website_multi_theme</field>
-        <field name="parent_id" ref="website.website2_main_menu" />
-        <field name="sequence" type="int">50</field>
-        <field name="website_id" ref="website.website2"/>
-    </record>
-
     <template id="demo_page_view" name="Multi website theme demo page">
         <t t-call="website.layout">
             <section class="jumbotron s_big_message" style="background-image: url('/web/image/website.s_background_image_01');">
@@ -47,10 +31,21 @@
 
 
     <record id="menu_demo_page" model="website.menu">
+        <field name="name">Multi website theme demo page</field>
+        <field name="url">/website_multi_theme</field>
+        <field name="parent_id" ref="website.main_menu" />
+        <field name="sequence" type="int">50</field>
+        <field name="website_id" ref="website.default_website"/>
         <field name="page_id" ref="demo_page" />
     </record>
 
+
     <record id="menu_demo_page2" model="website.menu">
+        <field name="name">Multi website theme demo page</field>
+        <field name="url">/website_multi_theme</field>
+        <field name="parent_id" ref="website.website2_main_menu" />
+        <field name="sequence" type="int">50</field>
+        <field name="website_id" ref="website.website2"/>
         <field name="page_id" ref="demo_page" />
     </record>
 
