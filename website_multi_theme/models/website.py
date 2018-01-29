@@ -115,7 +115,8 @@ class Website(models.Model):
             self.env.ref("web.assets_frontend") |
             self.env.ref("website.assets_frontend"))
         main_layout = self.env.ref("website.layout")
-        main_views = main_assets_frontend | main_layout
+        main_snippets = self.env.ref("website.snippets")
+        main_views = main_assets_frontend | main_layout | main_snippets
         # Patterns that will be duplicated to enable multi themes
         assets_pattern = self.env.ref("website_multi_theme.assets_pattern")
         layout_pattern = self.env.ref("website_multi_theme.layout_pattern")
@@ -168,6 +169,9 @@ class Website(models.Model):
                     elif copied_view.inherit_id < main_layout:
                         copied_view.inherit_id = custom_layout
                         data.attrib["inherit_id"] = custom_layout.key
+                    elif copied_view.inherit_id < main_snippets:
+                        copied_view.inherit_id = custom_snippets
+                        data.attrib["inherit_id"] = custom_snippets.key
                     copied_view.arch = etree.tostring(data)
                 custom_views |= copied_view
             # Delete any custom view that should exist no more
