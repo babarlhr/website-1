@@ -177,8 +177,12 @@ class Website(models.Model):
                     copied_view.arch = etree.tostring(data)
                 elif (copied_view.inherit_id and
                       theme_module_name and
-                      copied_view.inherit_id.model_data_id.module == theme_module_name):
-                    # it inherits view of the same module, which might be copied
+                      copied_view.
+                      inherit_id.
+                      model_data_id.
+                      module == theme_module_name):
+                    # it inherits view of the same module,
+                    # which might be copied
                     copied_parent = self._find_duplicate_view_for_website(
                         copied_view.inherit_id, website
                     )
