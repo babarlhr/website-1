@@ -124,6 +124,10 @@ class Website(models.Model):
         # Patterns that will be duplicated to enable multi themes
         assets_pattern = self.env.ref("website_multi_theme.assets_pattern")
         layout_pattern = self.env.ref("website_multi_theme.layout_pattern")
+
+        def view2module(view):
+            return view and view.model_data_id.module
+
         for website in self:
             # Websites without multi theme need to clean their previous views
             if not website.multi_theme_id:
@@ -175,12 +179,7 @@ class Website(models.Model):
                         copied_view.inherit_id = custom_layout
                         data.attrib["inherit_id"] = custom_layout.key
                     copied_view.arch = etree.tostring(data)
-                elif (copied_view.inherit_id and
-                      theme_module_name and
-                      copied_view.
-                      inherit_id.
-                      model_data_id.
-                      module == theme_module_name):
+                elif view2module(copied_view.inherit_id) == theme_module_name:
                     # it inherits view of the same module,
                     # which might be copied
                     copied_parent = self._find_duplicate_view_for_website(
