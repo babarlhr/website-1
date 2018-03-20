@@ -7,19 +7,22 @@ from odoo.addons.website.controllers.main import Website
 
 class WebsiteMultiTheme(Website):
 
+    def _xml_id2key(self, xml_id):
+        view = request.env.ref(xml_id, raise_if_not_found=False)
+        if view:
+            return view.key
+        return None
+
     @route()
     def theme_customize_get(self, xml_ids):
-        """Override, because original method return view.xml_id,
-        which are 'website_multi_theme.auto_view_ID_WEBSITE',
+        """Extend in order to replace xml_id to key, because
+        view.xml_id is 'website_multi_theme.auto_view_ID_WEBSITE',
         while client works with original IDs.
+
         """
-        enable = []
-        disable = []
-        ids = self.get_view_ids(xml_ids)
-        ir_ui_view = request.env['ir.ui.view'].with_context(active_test=True)
-        for view in ir_ui_view.browse(ids):
-            if view.active:
-                enable.append(view.key)
-            else:
-                disable.append(view.key)
-        return [enable, disable]
+        res = super(WebsiteMultiTheme, self).theme_customize_get(xml_ids)
+        res = [[
+            self._xml_id2key(xml_id) or xml_id
+            for xml_id in group
+        ] for group in res]
+        return res
