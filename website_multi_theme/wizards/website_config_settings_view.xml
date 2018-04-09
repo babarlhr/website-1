@@ -15,7 +15,7 @@
             <field name="module_website_form_editor" position="after">
                 <label for="multi_theme_id"/>
                 <div>
-                    <field name="multi_theme_id" class="oe_inline"/>
+                    <field name="multi_theme_id" class="oe_inline" required="1"/>
                     <button icon="fa-refresh"
                             string="Reload"
                             type="object"
