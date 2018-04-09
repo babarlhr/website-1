@@ -4,7 +4,8 @@
 
 import logging
 
-from odoo import fields, models
+from odoo import fields, models, api
+from odoo.http import request
 
 
 _logger = logging.getLogger(__name__)
@@ -22,3 +23,16 @@ class IrUiView(models.Model):
         help="Indicates if the view was originally active before converting "
              "the single website theme that owns it to multi website mode.",
     )
+
+    @api.model
+    def _customize_template_get_views(self, key, full=False, bundles=False):
+        views = super(IrUiView, self)._customize_template_get_views(
+            key, full=full, bundles=bundles
+        )
+        if full:
+            return views
+
+        return views.filtered(
+            lambda v: not v.website_id
+            or v.website_id == request.website
+        )
