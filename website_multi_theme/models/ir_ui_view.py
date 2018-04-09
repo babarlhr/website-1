@@ -4,7 +4,8 @@
 
 import logging
 
-from odoo import fields, models
+from odoo import fields, models, api
+from odoo.http import request
 
 
 _logger = logging.getLogger(__name__)
@@ -13,6 +14,7 @@ _logger = logging.getLogger(__name__)
 class IrUiView(models.Model):
     _inherit = 'ir.ui.view'
 
+    # TODO: this field can be removed and origin_view_id can be used instead
     multi_theme_generated = fields.Boolean(
         name="Generated from multi theme module",
         readonly=True,
@@ -22,3 +24,29 @@ class IrUiView(models.Model):
         help="Indicates if the view was originally active before converting "
              "the single website theme that owns it to multi website mode.",
     )
+
+    # TODO: add fields below to form view
+    origin_view_id = fields.Many2one(
+        "ir.ui.view",
+        string="Copied from",
+        help="View from where this one was copied for multi-website"
+    )
+    copy_ids = fields.One2many(
+        "ir.ui.view",
+        "origin_view_id",
+        string="Copies",
+        help="Duplicates of this view"
+    )
+
+    @api.model
+    def _customize_template_get_views(self, key, full=False, bundles=False):
+        """This method is used to prepare items in 'Customize' menu of website Editor"""
+        views = super(IrUiView, self)._customize_template_get_views(
+            key, full=full, bundles=bundles
+        )
+
+        if full:
+            return views
+
+        current_website = request.website
+        return views.filtered(lambda v: v.website_id == current_website)

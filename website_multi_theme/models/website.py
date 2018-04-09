@@ -25,6 +25,9 @@ class Website(models.Model):
         comodel_name='website.theme',
         domain=[("asset_ids.view_id", "!=", False)],
         help="Multiwebsite-compatible theme for this website",
+        require=True,
+        default=lambda self: self.env.ref('website_multi_theme.theme_default',
+                                          raise_if_not_found=False)
     )
     multi_theme_view_ids = fields.One2many(
         comodel_name="ir.ui.view",
@@ -82,18 +85,15 @@ class Website(models.Model):
             return result
         # Copy patterns only for current website
         key = xmlid if override_key else pattern.key
+
         result = pattern.copy({
             "active": pattern.was_active,
             "arch_fs": False,
-            "customize_show": False,
             "key": key,
             "multi_theme_generated": True,
-            "name": u"{} (Multi-website {} for {})".format(
-                pattern.name,
-                xmlid,
-                self.display_name,
-            ),
+            "name": '%s (Multi-Website)' % pattern.name,
             "website_id": self.id,
+            "origin_view_id": pattern.id,
         })
         # Assign external IDs to new views
         module, name = xmlid.split(".")
@@ -178,12 +178,12 @@ class Website(models.Model):
                     parent_view_module = parent_view.model_data_id.module
                     copied_parent = None
 
-                    if parent_view_module == theme_module_name:
-                        # it inherits view of the same module,
-                        # which might be copied
-                        copied_parent = self._find_duplicate_view_for_website(
-                            parent_view, website
-                        )
+                    # check if parent was copied, so we need inherit that
+                    # instead of original parent, which is deactivated and not
+                    # used
+                    copied_parent = self._find_duplicate_view_for_website(
+                        parent_view, website
+                    )
 
                     if copied_parent:
                         new_parent = copied_parent
