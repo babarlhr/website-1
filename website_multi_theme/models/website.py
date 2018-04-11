@@ -89,7 +89,7 @@ class Website(models.Model):
             "active": pattern.was_active,
             "arch_fs": False,
             "key": key,
-            "name": '%s (Multi-Website)' % pattern.name,
+            "name": '%s (Website #%s)' % (pattern.name, self.id),
             "website_id": self.id,
             "origin_view_id": pattern.id,
         })
