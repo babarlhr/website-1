@@ -42,11 +42,11 @@ class WebsiteTheme(models.Model):
         # add views with customize_show menu, so we can activate them per
         # website independently
         common_refs += self.env['ir.ui.view']\
-                                   .with_context(active_test=False)\
-                                   .search([
-                                       ('website_id', '=', False),
-                                       ('customize_show', '=', True),
-                                   ]).mapped('model_data_id')
+                           .with_context(active_test=False)\
+                           .search([
+                               ('website_id', '=', False),
+                               ('customize_show', '=', True),
+                           ]).mapped('model_data_id')
 
         _logger.debug('common_refs: %s', common_refs.mapped('complete_name'))
 
