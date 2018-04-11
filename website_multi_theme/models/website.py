@@ -169,11 +169,7 @@ class Website(models.Model):
                     elif copied_view.inherit_id & main_layout:
                         new_parent = custom_layout
                 else:
-                    theme_module_name \
-                        = website.multi_theme_id.converted_theme_addon
-
                     parent_view = copied_view.inherit_id
-                    parent_view_module = parent_view.model_data_id.module
                     copied_parent = None
 
                     # check if parent was copied, so we need inherit that
