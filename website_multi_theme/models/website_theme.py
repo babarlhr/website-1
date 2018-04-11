@@ -36,13 +36,40 @@ class WebsiteTheme(models.Model):
     def _convert_assets(self):
         """Generate assets for converted themes"""
         Asset = self.env["website.theme.asset"]
-        for one in self.filtered("converted_theme_addon"):
-            # Get all views owned by the converted theme addon
-            refs = self.env["ir.model.data"].search([
-                ("module", "=", one.converted_theme_addon),
-                ("model", "=", "ir.ui.view"),
-            ])
-            existing = frozenset(one.mapped("asset_ids.name"))
+
+        common_refs = self.env["ir.model.data"]
+
+        # add views with customize_show menu, so we can activate them per
+        # website independently
+        common_refs += self.env['ir.ui.view']\
+                                   .with_context(active_test=False)\
+                                   .search([
+                                       ('website_id', '=', False),
+                                       ('customize_show', '=', True),
+                                   ]).mapped('model_data_id')
+
+        _logger.debug('common_refs: %s', common_refs.mapped('complete_name'))
+
+        for one in self:
+            refs = self.env["ir.model.data"]
+
+            if one.converted_theme_addon:
+                # Get all views owned by the converted theme addon
+                refs += self.env["ir.model.data"].search([
+                    ("module", "=", one.converted_theme_addon),
+                    ("model", "=", "ir.ui.view"),
+                ])
+
+            if refs or one.asset_ids:
+                # add common_refs only for installed themes
+                refs += common_refs
+
+            existing = frozenset(
+                one
+                .mapped("asset_ids")
+                .filtered("auto")
+                .mapped("name")
+            )
             expected = frozenset(refs.mapped("complete_name"))
             dangling = tuple(existing - expected)
             # Create a new asset for each theme view
@@ -50,6 +77,7 @@ class WebsiteTheme(models.Model):
                 _logger.debug("Creating asset %s for theme %s", ref, one.name)
                 one.asset_ids |= Asset.new({
                     "name": ref,
+                    "auto": True,
                 })
             # Delete all dangling assets
             if dangling:
@@ -85,6 +113,12 @@ class WebsiteThemeAsset(models.Model):
         string="Assets view",
         help="View that will be enabled when this theme is used in any "
              "website, and disabled otherwise. Usually used to load assets.",
+    )
+
+    auto = fields.Boolean(
+        string="Auto-generated",
+        help="Created automatically from theme view",
+        default=False,
     )
 
     @api.model

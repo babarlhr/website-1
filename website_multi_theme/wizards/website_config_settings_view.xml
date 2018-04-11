@@ -13,7 +13,7 @@
                 <field name="website_id"/>
             </field>
             <field name="module_website_form_editor" position="after">
-                <label for="multi_theme_id"/>
+                <label for="multi_theme_id" required="1"/>
                 <div>
                     <field name="multi_theme_id" class="oe_inline"/>
                     <button icon="fa-refresh"

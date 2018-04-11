@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2015 Antiun Ingenieria S.L. - Antonio Espinosa
 # Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -21,6 +22,7 @@
         "wizards/website_config_settings_view.xml",
         "data/themes_bootswatch.xml",
         "data/themes_private.xml",
+        "data/themes_default.xml",
         "templates/assets.xml",
         "templates/patterns.xml",
     ],

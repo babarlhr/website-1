@@ -137,6 +137,7 @@ Contributors
 * Rafael Blasco <rafael.blasco@tecnativa.com>
 * Antonio Espinosa <antonio.espinosa@tecnativa.com>
 * Jairo Llopis <jairo.llopis@tecnativa.com>
+* Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 
 Maintainer
 ----------
