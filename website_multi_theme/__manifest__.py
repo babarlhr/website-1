@@ -25,6 +25,7 @@
         "data/themes_default.xml",
         "templates/assets.xml",
         "templates/patterns.xml",
+        "views/ir_ui_view.xml",
     ],
     "demo": [
         "demo/pages.xml",
