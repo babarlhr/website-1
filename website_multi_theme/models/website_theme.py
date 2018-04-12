@@ -41,7 +41,7 @@ class WebsiteTheme(models.Model):
 
         # add views with customize_show menu, so we can activate them per
         # website independently
-        common_refs += self.env['ir.ui.view']\
+        common_refs |= self.env['ir.ui.view']\
                            .with_context(active_test=False)\
                            .search([
                                ('website_id', '=', False),
@@ -55,14 +55,14 @@ class WebsiteTheme(models.Model):
 
             if one.converted_theme_addon:
                 # Get all views owned by the converted theme addon
-                refs += self.env["ir.model.data"].search([
+                refs |= self.env["ir.model.data"].search([
                     ("module", "=", one.converted_theme_addon),
                     ("model", "=", "ir.ui.view"),
                 ])
 
             if refs or one.asset_ids:
                 # add common_refs only for installed themes
-                refs += common_refs
+                refs |= common_refs
 
             views = self.env["ir.ui.view"].search([
                 ("id", "in", refs.mapped("res_id")),

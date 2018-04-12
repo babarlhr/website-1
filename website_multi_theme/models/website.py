@@ -170,7 +170,6 @@ class Website(models.Model):
                         new_parent = custom_layout
                 else:
                     parent_view = copied_view.inherit_id
-                    copied_parent = None
 
                     # check if parent was copied, so we need inherit that
                     # instead of original parent, which is deactivated and not
