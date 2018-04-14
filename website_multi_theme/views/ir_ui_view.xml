@@ -9,13 +9,19 @@
         <field name="arch" type="xml">
 
             <xpath expr="//notebook" position="inside">
-                <page string="Multi-website" attrs="{'invisible': [('copy_ids', '=', [])]}">
+                <page string="Multi-website"
+                      name="multiwebsite_origin_view"
+                      attrs="{'invisible': [('copy_ids', '=', [])]}">
+                    <group>
+                        <field name="was_active" groups="base.group_no_one"/>
+                    </group>
                     <separator string="Copies"/>
                     <field name="copy_ids"/>
                 </page>
-                <page string="Multi-website" attrs="{'invisible': [('origin_view_id', '=', False)]}">
+                <page string="Multi-website"
+                      name="multiwebsite_copied_view"
+                      attrs="{'invisible': [('origin_view_id', '=', False)]}">
                     <group string="Original view">
-                        <field name="was_active" groups="base.group_no_one"/>
                         <field name="origin_view_id"/>
                     </group>
                 </page>
