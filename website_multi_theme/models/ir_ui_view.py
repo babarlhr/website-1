@@ -20,7 +20,6 @@ class IrUiView(models.Model):
         help="Indicates if the view was originally active before converting "
              "the single website theme that owns it to multi website mode.",
     )
-
     origin_view_id = fields.Many2one(
         "ir.ui.view",
         string="Copied from",

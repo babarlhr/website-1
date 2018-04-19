@@ -128,7 +128,8 @@ class Website(models.Model):
         for website in self:
             if not website.multi_theme_id:
                 default_theme = self.env.ref(
-                    'website_multi_theme.theme_default'
+                    'website_multi_theme.theme_default',
+                    raise_if_not_found=False,
                 )
                 if not default_theme:
                     _logger.info(
