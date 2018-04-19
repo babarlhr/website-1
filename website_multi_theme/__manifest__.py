@@ -22,9 +22,9 @@
         "wizards/website_config_settings_view.xml",
         "data/themes_bootswatch.xml",
         "data/themes_private.xml",
-        "data/themes_default.xml",
         "templates/assets.xml",
         "templates/patterns.xml",
+        "data/themes_default.xml",
         "views/ir_ui_view.xml",
     ],
     "demo": [

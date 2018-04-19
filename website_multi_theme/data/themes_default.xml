@@ -19,7 +19,8 @@
         <field name="theme_id" ref="theme_default"/>
     </record>
 
-    <function model="website.theme"
-              name="_convert_assets"
-              eval="([ref('theme_default')])"/>
+    <!-- This method prepare assets and applies default theme for all website -->
+    <function model="website.config.settings"
+              name="multi_theme_reload"
+              />
 </odoo>
