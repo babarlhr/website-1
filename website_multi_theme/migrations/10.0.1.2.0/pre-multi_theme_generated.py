@@ -5,4 +5,6 @@
 
 def migrate(cr, version):
     # rename column to update data in "post-..." script
-    cr.execute("ALTER TABLE ir_ui_view RENAME COLUMN multi_theme_generated TO multi_theme_generated_tmp")
+    cr.execute("ALTER TABLE ir_ui_view "
+               "RENAME COLUMN multi_theme_generated "
+               "TO multi_theme_generated_tmp")
