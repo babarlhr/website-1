@@ -48,7 +48,6 @@ class WebsiteTheme(models.Model):
                                ('website_id', '=', False),
                                ('customize_show', '=', True),
                            ]).mapped('model_data_id')
-
         _logger.debug('common_refs: %s', common_refs.mapped('complete_name'))
 
         for one in self:

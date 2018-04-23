@@ -26,7 +26,7 @@ class IrUiView(models.Model):
         readonly=True,
         help="View from where this one was copied for multi-website"
     )
-    copy_ids = fields.One2many(
+    multitheme_copy_ids = fields.One2many(
         "ir.ui.view",
         "origin_view_id",
         string="Copies",
@@ -41,9 +41,7 @@ class IrUiView(models.Model):
         views = super(IrUiView, self)._customize_template_get_views(
             key, full=full, bundles=bundles
         )
-
         if full:
             return views
-
         current_website = request.website
         return views.filtered(lambda v: v.website_id == current_website)
