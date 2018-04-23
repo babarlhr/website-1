@@ -16,9 +16,9 @@
                 <label for="multi_theme_id"/>
                 <div>
                     <!-- "required" cannot be set in the model (python file),
-                         because we cannot set the value on installation,
-                         because Default theme is created after loading python
-                         files -->
+                         because it breaks CI tests in modules that create
+                         "website" record while this module is not loaded yet
+                         -->
                     <field name="multi_theme_id" class="oe_inline" required="1"/>
                     <button icon="fa-refresh"
                             string="Reload"

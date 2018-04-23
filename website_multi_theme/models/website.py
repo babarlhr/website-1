@@ -26,7 +26,6 @@ class Website(models.Model):
         comodel_name='website.theme',
         domain=[("asset_ids.view_id", "!=", False)],
         help="Multiwebsite-compatible theme for this website",
-        require=True,
         default=lambda self: self.env.ref('website_multi_theme.theme_default',
                                           raise_if_not_found=False)
     )
