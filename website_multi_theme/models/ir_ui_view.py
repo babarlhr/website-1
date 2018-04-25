@@ -45,3 +45,23 @@ class IrUiView(models.Model):
             return views
         current_website = request.website
         return views.filtered(lambda v: v.website_id == current_website)
+
+    # Workaround for https://github.com/odoo/odoo/pull/24429
+    def search(self, domain, offset=0, limit=None, order=None, count=False):
+        if self.env.context.get('search_multi_website_snippet'):
+            website_id = self.env.context['search_multi_website_snippet']
+            domain += [
+                '|',
+                ('website_id', '=', website_id),
+                ('website_id', '=', False)
+            ]
+            order = 'website_id DESC'
+            _logger.debug('Updated domain: %s', domain)
+
+        res = super(IrUiView, self).search(
+            domain, offset=offset, limit=limit, order=order, count=count)
+
+        if self.env.context.get('search_multi_website_snippet'):
+            return res[:1]
+        else:
+            return res
