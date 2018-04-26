@@ -55,6 +55,7 @@ class IrUiView(models.Model):
                 ('website_id', '=', website_id),
                 ('website_id', '=', False)
             ]
+            order = 'website_id DESC'
             _logger.debug('Updated domain: %s', domain)
 
         res = super(IrUiView, self).search(
