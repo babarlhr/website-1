@@ -56,12 +56,10 @@ class IrUiView(models.Model):
                 ('website_id', '=', False)
             ]
             order = 'website_id DESC'
+            limit = 1
             _logger.debug('Updated domain: %s', domain)
 
         res = super(IrUiView, self).search(
             domain, offset=offset, limit=limit, order=order, count=count)
 
-        if self.env.context.get('search_multi_website_snippet'):
-            return res[:1]
-        else:
-            return res
+        return res
